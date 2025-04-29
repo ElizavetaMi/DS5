@@ -39,6 +39,8 @@ jobs:
           until curl --silent --fail http://localhost:9999 || [ $attempts -ge $max_attempts ]; do
             echo "Waiting for application to start... Attempt $((attempts+1))"
             attempts=$((attempts+1))
+            # Печатаем логи приложения, чтобы увидеть, что происходит
+            cat app_log.txt
             sleep 5
           done
           if [ $attempts -ge $max_attempts ]; then
