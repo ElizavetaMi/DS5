@@ -43,3 +43,6 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test --info -Dselenide.headless=true
+
+      - name: Shut down the app
+        run: pkill -f 'app-card-delivery.jar'
