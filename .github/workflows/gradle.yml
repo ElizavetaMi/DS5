@@ -22,44 +22,8 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-
-      - name: Build JAR file
-        run: ./gradlew build
-
-
-      - name: Check if app-replan-delivery.jar exists
-        run: |
-          if [ ! -f ./build/libs/app-replan-delivery.jar ]; then
-            echo "JAR file not found!"
-            exit 1
-          else
-            echo "JAR file found."
-          fi
-
-      - name: Run app
-        run: java -jar ./build/libs/app-replan-delivery.jar > app_log.txt 2>&1 &
-
-      - name: Check if app is running
-        run: |
-          ps aux | grep app-replan-delivery.jar
-
-      - name: Show app logs if failed
-        run: cat app_log.txt
-
-      - name: Wait for the application to be up
-        run: |
-          attempts=0
-          max_attempts=20
-          until curl --silent --fail http://localhost:9999 || [ $attempts -ge $max_attempts ]; do
-            echo "Waiting for application to start... Attempt $((attempts+1))"
-            attempts=$((attempts+1))
-            cat app_log.txt
-            sleep 5
-          done
-          if [ $attempts -ge $max_attempts ]; then
-            echo "Application did not start within the expected time."
-            exit 1
-          fi
+      - name: Build SUT
+        run: java -jar .artifacts/app-replan-delivery.jar
 
       - name: Run tests
-        run: ./gradlew test --stacktrace --info -Dselenide.headless=true
+        run: ./gradlew test --info -Dselenide.headless=true
