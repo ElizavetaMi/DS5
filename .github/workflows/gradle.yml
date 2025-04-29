@@ -25,5 +25,12 @@ jobs:
       - name: Build SUT
         run: java -jar ./artifacts/app-card-delivery.jar &
 
+      - name: Wait for the application to be up
+        run: |
+          until curl --silent --fail http://localhost:9999; do
+            echo "Waiting for application to start..."
+            sleep 5
+          done
+
       - name: Run tests
         run: ./gradlew test --info -Dselenide.headless=true
