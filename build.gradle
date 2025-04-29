@@ -23,21 +23,15 @@ dependencies {
 test {
     useJUnitPlatform()
 
-    // Установка кодировки для тестов
-    systemProperty 'file.encoding', 'UTF-8'
 
-    // Убедитесь, что компиляция также использует правильную кодировку
-    doFirst {
-        jvmArgs '-Dfile.encoding=UTF-8'
-    }
+    systemProperty 'file.encoding', 'UTF-8'
+    jvmArgs '-Dfile.encoding=UTF-8'
+
+
+    systemProperty 'selenide.headless', 'true'
 }
 
-// Устанавливаем кодировку для компилятора
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
-}
-
-tasks.withType(Test) {
-    // Убедитесь, что кодировка UTF-8 используется при запуске тестов
-    jvmArgs '-Dfile.encoding=UTF-8'
 }
