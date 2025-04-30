@@ -13,6 +13,7 @@ public class DataGenerator {
     private static final String[] validCities = {  // Сделано статическим
             "Москва", "Санкт-Петербург", "Казань", "Новосибирск", "Екатеринбург", "Челябинск", "Нижний Новгород"
     };
+    private static String phone;
 
     public static String generateDate(int daysFromToday) {
         return LocalDate.now().plusDays(daysFromToday).format(formatter);  // Использует статический formatter
@@ -23,12 +24,6 @@ public class DataGenerator {
         Faker faker = new Faker(new Locale("ru"));
         String city = validCities[new Random().nextInt(validCities.length)];
         String name = faker.name().lastName() + " " + faker.name().firstName();  // Формат: Фамилия Имя
-        String phone = faker.phoneNumber().phoneNumber().replaceAll("[^0-9]", "");
-        if (!phone.startsWith("7")) {
-            phone = "7" + phone.substring(phone.length() > 10 ? phone.length() - 10 : 0);
-        }
-        phone = "+" + phone;
-
         return new UserInfo(city, name, phone);  // Создаем объект UserInfo
     }
 }
