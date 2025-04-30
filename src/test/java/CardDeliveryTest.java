@@ -37,9 +37,10 @@ public class CardDeliveryTest {
                 .click();
 
         // Проверка успешного планирования
-        $("[data-test-id=success-notification]")
+        $("[data-test-id=success-notification] .notification__content")
                 .shouldBe(Condition.visible, Duration.ofSeconds(15))
-                .shouldHave(Condition.text(firstMeetingDate));
+                .shouldHave(Condition.exactText("Встреча успешно запланирована на " + firstMeetingDate));
+
 
         // Перепланировка: ввод новой даты
         $("[data-test-id=date] input").doubleClick().sendKeys(Keys.BACK_SPACE);
@@ -63,9 +64,9 @@ public class CardDeliveryTest {
                 .shouldBe(Condition.enabled, Duration.ofSeconds(10))
                 .click();
 
-        // Проверка успешной перепланировки
-        $("[data-test-id=success-notification]")
+        $("[data-test-id=success-notification] .notification__content")
                 .shouldBe(Condition.visible, Duration.ofSeconds(15))
-                .shouldHave(Condition.text(secondMeetingDate));
+                .shouldHave(Condition.exactText("Встреча успешно запланирована на " + firstMeetingDate));
+
     }
 }
