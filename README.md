@@ -1,3 +1,4 @@
 [![Java CI with Gradle](https://github.com/ElizavetaMi/DS5/actions/workflows/gradle.yml/badge.svg)](https://github.com/ElizavetaMi/DS5/actions/workflows/gradle.yml)
 
-![img.png](img.png)
+![Описание изображения](images/screenshot.png)
+
